@@ -1,6 +1,7 @@
 // Подключаем библиотеку для работы с Telegram API в переменную
 import TelegramBot from 'node-telegram-bot-api';
 import dotenv from 'dotenv';
+import { CronJob } from 'cron';
 
 dotenv.config();
 
@@ -8,6 +9,11 @@ dotenv.config();
 const token = '2044126598:AAGVdD2LT_Rd1B5joOYA2EfmFqgSW5uOnpQ';
 const happyDate = new Date('2021-07-16 21:00');
 const bot = new TelegramBot(token, { polling: true });
+const job = CronJob('0 10 * * *', function () {
+	bot.sendMessage(584125131, 'Еще один день с Темботом');
+});
+
+job.start();
 
 function diffDates(day_one, day_two) {
 	return Math.round((day_one - day_two) / (60 * 60 * 24 * 1000));
